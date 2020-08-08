@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 
+import { Observable, of } from 'rxjs';
+import { delay } from 'rxjs/operators';
+
 import { Leader } from '../shared/leader';
 import { LEADERS } from '../shared/leaders';
 
@@ -10,13 +13,21 @@ export class LeaderService {
 
   constructor() { }
 
-  getLeaders() :Leader[]
+  getLeaders() :Observable<Leader[]>
   {
-    return LEADERS;
+    return of(LEADERS).pipe(delay(2000));
+    // return new Promise(resolve=> {
+    //   // Simulate server latency with 2 second delay
+    //     setTimeout(() => resolve(LEADERS), 2000);
+    // });
   }
 
-  getFeaturedLeader(): Leader 
+  getFeaturedLeader(): Observable<Leader>
   {
-    return LEADERS.filter((leader) => leader.featured)[0];
+    return of(LEADERS.filter((leader) => leader.featured)[0]).pipe(delay(2000));
+    // return new Promise(resolve=> {
+    //   // Simulate server latency with 2 second delay
+    //     setTimeout(() => resolve(LEADERS.filter((leader) => leader.featured)[0]), 2000);
+    // });
   }
 }
