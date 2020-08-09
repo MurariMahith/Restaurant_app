@@ -40,4 +40,9 @@ export class DishService {
     // });
   }
 
+  getDishIds(): Observable<string[] | any> 
+  {
+    return of(DISHES.map(dish => dish.id ));
+  }
+
 }
